@@ -38,6 +38,12 @@ set_default :rake, lambda { %{#{bundle_prefix} rake} }
 
 set_default :rails, lambda { %{#{bundle_prefix} rails} }
 
+# ### db_migrate
+# Name of db:migrate rake task. You might need to override it when you use a gem
+# to migrate database like apartment.
+
+set_default :db_migrate, 'db:migrate'
+
 # ### asset_paths
 # The paths to be checked.
 #
@@ -148,11 +154,11 @@ namespace :rails do
         ],
         :changed => %[
           echo "-----> #{message}"
-          #{echo_cmd %[#{rake} db:migrate]}
+          #{echo_cmd %[#{rake} #{db_migrate}]}
         ],
         :default => %[
           echo "-----> Migrating database"
-          #{echo_cmd %[#{rake} db:migrate]}
+          #{echo_cmd %[#{rake} #{db_migrate}]}
         ]
     end
   end
@@ -162,7 +168,7 @@ namespace :rails do
   task :'db_migrate:force' do
     queue %{
       echo "-----> Migrating database"
-      #{echo_cmd %[#{rake} db:migrate]}
+      #{echo_cmd %[#{rake} #{db_migrate}]}
     }
   end
 

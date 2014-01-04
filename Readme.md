@@ -830,6 +830,10 @@ The prefix for `rails` commands. Use like so:
 queue! "#{rails} console"
 ~~~
 
+### db_migrate
+Sets name of rake task for migrating database. If you use gem apartment for migrations,
+simply set it to "apartment:migrate".
+
 ### asset_paths
 The paths to be checked.
 
